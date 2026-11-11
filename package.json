@@ -1,0 +1,45 @@
+{
+  "name": "dsh-plugin-dpom-apm",
+  "description": "DeepSeek Harness plugin for DPOMBaseMCPServer APM diagnostics: auto-resolves businessId/envId, normalizes MCP tool arguments, and builds replayable evidence chains.",
+  "version": "0.1.0",
+  "icon": "./icon.svg",
+  "type": "module",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xinqihuang/dsh-plugin-dpom-apm.git"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "apm",
+    "huawei-cloud",
+    "dpom",
+    "sre",
+    "evidence-chain"
+  ],
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./schema/*.json": "./schema/*.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "icon.svg",
+    "locale/*.json",
+    "schema/*.json",
+    "docs",
+    "examples",
+    "lib",
+    "cordis.patch.yml"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.1.0 <5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "DPOM APM Diagnostics",
+    "description": "APM diagnostics against DPOMBaseMCPServer: auto-resolves businessId/envId, normalizes MCP tool arguments, and emits replayable evidence chains."
+  }
+}

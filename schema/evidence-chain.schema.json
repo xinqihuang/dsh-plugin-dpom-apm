@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/xinqihuang/dsh-plugin-dpom-apm/main/schema/evidence-chain.schema.json",
+  "title": "DPOM APM Evidence Chain",
+  "description": "Fixed, replayable format for packaging a cross-component APM diagnosis (CES alarm -> APM business -> traces -> SQL -> metrics) so a downstream code-diagnosis service can audit every step and challenge every finding without access to the original MCP server.",
+  "type": "object",
+  "required": ["schema", "incident", "context", "evidence", "findings", "conclusion", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "dpom-evidence-chain/1.0",
+      "description": "Format identifier and version."
+    },
+    "incident": {
+      "type": "object",
+      "required": ["title", "status", "detectedAt"],
+      "additionalProperties": true,
+      "properties": {
+        "title": { "type": "string", "description": "Incident title, usually the CES alarm rule name." },
+        "severity": { "type": "string", "enum": ["critical", "major", "minor", "none"], "description": "Normalized severity." },
+        "status": { "type": "string", "description": "Alarm status at collection time, e.g. alarm / ok / RECOVER." },
+        "detectedAt": { "type": "string", "description": "Alarm window start, 'yyyy-MM-dd HH:mm:ss' host-local." },
+        "recoveredAt": { "type": "string", "description": "Alarm window end, 'yyyy-MM-dd HH:mm:ss' host-local." }
+      }
+    },
+    "context": {
+      "type": "object",
+      "required": ["source", "timeWindow"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string", "description": "What triggered the diagnosis, e.g. ces-alarm." },
+        "resource": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "type": { "type": "string", "description": "CES namespace, e.g. SYS.RDS." },
+            "id": { "type": ["string", "null"], "description": "Primary dimension value of the alarmed resource." },
+            "dimensions": { "type": "array", "description": "CES dimension list from the alarm." }
+          }
+        },
+        "business": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "description": "Resolved APM business: { businessId, name, matchMethod } or null."
+        },
+        "environments": {
+          "type": "array",
+          "description": "APM environments of the business, sorted by online probe count.",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "envId": { "type": "integer" },
+              "envName": { "type": "string" },
+              "onlineCount": { "type": "integer" }
+            }
+          }
+        },
+        "timeWindow": {
+          "type": "object",
+          "required": ["alarm"],
+          "additionalProperties": false,
+          "properties": {
+            "alarm": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "string" },
+              "description": "[start, end] of the alarm window, host-local 'yyyy-MM-dd HH:mm:ss'."
+            },
+            "baseline": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "string" },
+              "description": "[start, end] of the equal-duration baseline window immediately before the alarm."
+            },
+            "baseline2": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "string" },
+              "description": "[start, end] of the second baseline window before that; findings use the quieter baseline as reference."
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "description": "Ordered evidence steps; findings reference them by 1-based index.",
+      "items": {
+        "type": "object",
+        "required": ["step", "kind", "tool", "query", "summary", "data"],
+        "additionalProperties": false,
+        "properties": {
+          "step": { "type": "integer", "minimum": 1, "description": "1-based step index." },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "ces_alarm",
+              "apm_business_resolution",
+              "apm_alarm",
+              "trace_stats",
+              "slow_endpoint_ranking",
+              "trace_sql",
+              "resource_metrics"
+            ],
+            "description": "Machine-readable step kind."
+          },
+          "tool": { "type": "string", "description": "MCP tool (or tool chain) that produced the data." },
+          "query": { "type": "object", "description": "The exact arguments the tool received." },
+          "summary": { "type": "string", "description": "One-sentence human summary of what this step shows." },
+          "data": { "type": "object", "description": "Raw (possibly trimmed) tool result; arrays trimmed for compact output carry a trailing { trimmed: N } marker." }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "description": "Rule-derived findings; each must reference at least one evidence step.",
+      "items": {
+        "type": "object",
+        "required": ["id", "statement", "evidenceRefs"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "description": "Stable finding id, e.g. F1." },
+          "statement": { "type": "string", "description": "The finding in one sentence." },
+          "evidenceRefs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "integer", "minimum": 1 },
+            "description": "1-based indexes into evidence[] supporting this finding."
+          },
+          "severity": { "type": "string", "enum": ["high", "medium", "low"] }
+        }
+      }
+    },
+    "conclusion": {
+      "type": "object",
+      "required": ["rootCause", "confidence", "recommendations"],
+      "additionalProperties": false,
+      "properties": {
+        "rootCause": { "type": "string", "description": "Rule-based root-cause statement." },
+        "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+        "recommendations": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["mcpServer", "generatedAt", "generator"],
+      "additionalProperties": false,
+      "properties": {
+        "mcpServer": { "type": "string", "description": "Base URL of the DPOMBaseMCPServer that produced the evidence." },
+        "generatedAt": { "type": "string", "description": "ISO-8601 generation timestamp." },
+        "generator": { "type": "string", "description": "Generator name and version, e.g. dsh-plugin-dpom-apm/0.1.0." },
+        "schema": { "type": "string", "description": "Format identifier echoed from the top-level schema field." }
+      }
+    }
+  }
+}

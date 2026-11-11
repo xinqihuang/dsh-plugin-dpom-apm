@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "DPOM APM 诊断",
+    "description": "面向 DPOMBaseMCPServer 的 APM 诊断工具：自动解析 businessId/envId，归一化 MCP 工具入参，并输出可回放的证据链。"
+  }
+}

@@ -1,0 +1,17 @@
+# dsh-plugin-dpom-apm bundle patch.
+#
+# Install (from the DSH plugin manager or the plugin_market tool):
+#   target: https://github.com/xinqihuang/dsh-plugin-dpom-apm.git
+# The entry below mounts when the bundle is enabled. Adjust serverUrl when
+# DPOMBaseMCPServer runs elsewhere; resourceRegion is the region where the
+# monitored resources live (NOT the APM endpoint region).
+
+- insert:
+    - id: dpom-apm
+      name: dsh-plugin-dpom-apm
+      config:
+        serverUrl: http://127.0.0.1:8080
+        resourceRegion: cn-north-9
+        defaultBusinessId: null
+        requestTimeoutMs: 120000
+        discoveryCacheTtlMs: 3600000

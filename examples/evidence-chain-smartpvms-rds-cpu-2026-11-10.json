@@ -1,0 +1,836 @@
+{
+  "schema": "dpom-evidence-chain/1.0",
+  "incident": {
+    "title": "P2风险告警-智能光伏-RDS-CPU使用率-0400_11",
+    "severity": "critical",
+    "status": "ok",
+    "detectedAt": "2026-11-10 15:19:55",
+    "recoveredAt": "2026-11-10 15:28:59"
+  },
+  "context": {
+    "source": "ces-alarm",
+    "resource": {
+      "type": "SYS.RDS",
+      "id": "8273e2812df642cf995e0d5ec109623ain01",
+      "dimensions": [
+        {
+          "name": "rds_cluster_id",
+          "value": "8273e2812df642cf995e0d5ec109623ain01"
+        }
+      ]
+    },
+    "business": {
+      "businessId": 244409,
+      "name": "smartpvms",
+      "matchMethod": "alarm-token-match"
+    },
+    "environments": [
+      {
+        "envId": 1578752,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 9
+      },
+      {
+        "envId": 2279478,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 6
+      },
+      {
+        "envId": 2279474,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 6
+      },
+      {
+        "envId": 2279479,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 5
+      },
+      {
+        "envId": 1900598,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 5
+      },
+      {
+        "envId": 1578751,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 5
+      },
+      {
+        "envId": 1578750,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 5
+      },
+      {
+        "envId": 1578747,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 5
+      },
+      {
+        "envId": 1578744,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 4
+      },
+      {
+        "envId": 1578749,
+        "envName": "pvms01-digi_power_cloud-smartpvms",
+        "onlineCount": 3
+      }
+    ],
+    "timeWindow": {
+      "alarm": [
+        "2026-11-10 15:19:55",
+        "2026-11-10 15:28:59"
+      ],
+      "baseline": [
+        "2026-11-10 15:10:51",
+        "2026-11-10 15:19:55"
+      ],
+      "baseline2": [
+        "2026-11-10 15:01:47",
+        "2026-11-10 15:10:51"
+      ]
+    }
+  },
+  "evidence": [
+    {
+      "step": 1,
+      "kind": "ces_alarm",
+      "tool": "list_alarms",
+      "query": {
+        "namespace": "SYS.RDS",
+        "from": "1794294000000",
+        "to": "1794296700000",
+        "limit": 100
+      },
+      "summary": "2 SYS.RDS alarm(s) in the search window; targeting \"P2风险告警-智能光伏-RDS-CPU使用率-0400_11\" (level 1, ok).",
+      "data": {
+        "total": 2,
+        "alarms": [
+          {
+            "alarmId": "al1783049513089REweFN3yl",
+            "alarmName": "P2风险告警-智能光伏-RDS-CPU使用率-0400_11",
+            "alarmDescription": null,
+            "alarmLevel": 1,
+            "alarmType": "MULTI_INSTANCE",
+            "alarmStatus": "ok",
+            "namespace": "SYS.RDS",
+            "metricName": "rds001_cpu_util",
+            "triggerTime": 1794295195000,
+            "updateTime": 1794295497000,
+            "recordId": "ah261110T151955SpYq0bW1X",
+            "actionEnabled": true,
+            "beginTime": 1794295195,
+            "endTime": 1794295739,
+            "firstAlarmTime": 1794295195,
+            "lastAlarmTime": 1794295497,
+            "alarmRecoveryTime": 1794295739,
+            "metric": {
+              "namespace": "SYS.RDS",
+              "metricName": "rds001_cpu_util",
+              "dimensions": [
+                {
+                  "name": "rds_cluster_id",
+                  "value": "8273e2812df642cf995e0d5ec109623ain01"
+                }
+              ]
+            },
+            "condition": {
+              "period": 1,
+              "filter": "average",
+              "comparisonOperator": ">",
+              "value": 90,
+              "unit": "%",
+              "count": 3,
+              "suppressDuration": 300
+            },
+            "additionalInfo": {
+              "resourceId": "",
+              "resourceName": "",
+              "eventId": ""
+            },
+            "alarmActions": [
+              {
+                "type": "notification",
+                "notificationList": [
+                  "urn:smn:cn-north-9:ee100d4d75274fe79641a25c3ee60176:SMN-CloudEye",
+                  "urn:smn:cn-north-9:ee100d4d75274fe79641a25c3ee60176:SmartPVMS_critical_alarm"
+                ]
+              }
+            ],
+            "okActions": [
+              {
+                "type": "notification",
+                "notificationList": [
+                  "urn:smn:cn-north-9:ee100d4d75274fe79641a25c3ee60176:SMN-CloudEye",
+                  "urn:smn:cn-north-9:ee100d4d75274fe79641a25c3ee60176:SmartPVMS_critical_alarm"
+                ]
+              }
+            ],
+            "dataPoints": [
+              {
+                "time": "2026-11-10T15:28:00+08:00",
+                "value": 66.75
+              },
+              {
+                "time": "2026-11-10T15:27:00+08:00",
+                "value": 94.51
+              },
+              {
+                "time": "2026-11-10T15:26:00+08:00",
+                "value": 93.57
+              }
+            ]
+          },
+          {
+            "alarmId": "al1722068138021ELD4ZwPvR",
+            "alarmName": "智能光伏-RDS-CPU使用率-0400_11",
+            "alarmDescription": null,
+            "alarmLevel": 2,
+            "alarmType": "MULTI_INSTANCE",
+            "alarmStatus": "ok",
+            "namespace": "SYS.RDS",
+            "metricName": "rds001_cpu_util",
+            "triggerTime": 1794295195000,
+            "updateTime": 1794295195000,
+            "recordId": "ah261110T151955SdeVQTXkU",
+            "actionEnabled": true,
+            "beginTime": 1794295195,
+            "endTime": 1794295739,
+            "firstAlarmTime": 1794295195,
+            "lastAlarmTime": 1794295195,
+            "alarmRecoveryTime": 1794295739,
+            "metric": {
+              "namespace": "SYS.RDS",
+              "metricName": "rds001_cpu_util",
+              "dimensions": [
+                {
+                  "name": "rds_cluster_id",
+                  "value": "8273e2812df642cf995e0d5ec109623ain01"
+                }
+              ]
+            },
+            "condition": {
+              "period": 1,
+              "filter": "average",
+              "comparisonOperator": ">",
+              "value": 80,
+              "unit": "%",
+              "count": 3,
+              "suppressDuration": 86400
+            },
+            "additionalInfo": {
+              "resourceId": "",
+              "resourceName": "",
+              "eventId": ""
+            },
+            "alarmActions": [
+              {
+                "type": "notification",
+                "notificationList": [
+                  "urn:smn:cn-north-9:ee100d4d75274fe79641a25c3ee60176:SmartPVMS_major_alarm",
+                  "urn:smn:cn-north-9:ee100d4d75274fe79641a25c3ee60176:SMN-CloudEye"
+                ]
+              }
+            ],
+            "okActions": [
+              {
+                "type": "notification",
+                "notificationList": [
+                  "urn:smn:cn-north-9:ee100d4d75274fe79641a25c3ee60176:SmartPVMS_major_alarm",
+                  "urn:smn:cn-north-9:ee100d4d75274fe79641a25c3ee60176:SMN-CloudEye"
+                ]
+              }
+            ],
+            "dataPoints": [
+              {
+                "time": "2026-11-10T15:28:00+08:00",
+                "value": 66.75
+              },
+              {
+                "time": "2026-11-10T15:27:00+08:00",
+                "value": 94.51
+              },
+              {
+                "time": "2026-11-10T15:26:00+08:00",
+                "value": 93.57
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "step": 2,
+      "kind": "apm_business_resolution",
+      "tool": "list_apm_business (+ token match)",
+      "query": {
+        "alarmName": "P2风险告警-智能光伏-RDS-CPU使用率-0400_11",
+        "smnTopics": [
+          "SMN-CloudEye",
+          "SmartPVMS_critical_alarm"
+        ],
+        "businessName": null
+      },
+      "summary": "Alarm maps to APM business \"smartpvms\" (businessId=244409) via alarm-token-match.",
+      "data": {
+        "resolved": {
+          "businessId": 244409,
+          "name": "smartpvms",
+          "matchMethod": "alarm-token-match"
+        },
+        "tokens": [
+          "smn",
+          "cloudeye",
+          "smartpvms",
+          "rds"
+        ]
+      }
+    },
+    {
+      "step": 3,
+      "kind": "apm_alarm",
+      "tool": "list_apm_alarm_data",
+      "query": {
+        "businessId": 244409,
+        "page": 1,
+        "pageSize": 100
+      },
+      "summary": "0 APM alarm(s) for business 244409 overlapping [baseline, window].",
+      "data": {
+        "alarms": []
+      }
+    },
+    {
+      "step": 4,
+      "kind": "trace_stats",
+      "tool": "query_traces",
+      "query": {
+        "businessId": 244409,
+        "windows": {
+          "alarm": [
+            "2026-11-10 15:19:55",
+            "2026-11-10 15:28:59"
+          ],
+          "baseline": [
+            "2026-11-10 15:10:51",
+            "2026-11-10 15:19:55"
+          ],
+          "baseline2": [
+            "2026-11-10 15:01:47",
+            "2026-11-10 15:10:51"
+          ]
+        }
+      },
+      "summary": "Alarm window vs two baseline windows: errors 6567/6128/5991, >1s 1333/821/670, >3s 809/438/272 (window/baseline/baseline2).",
+      "data": {
+        "window": {
+          "errors": 6567,
+          "slow1s": 1333,
+          "slow3s": 809
+        },
+        "baseline": {
+          "errors": 6128,
+          "slow1s": 821,
+          "slow3s": 438
+        },
+        "baseline2": {
+          "errors": 5991,
+          "slow1s": 670,
+          "slow3s": 272
+        }
+      }
+    },
+    {
+      "step": 5,
+      "kind": "slow_endpoint_ranking",
+      "tool": "query_traces",
+      "query": {
+        "businessId": 244409,
+        "timeUsedMin": 3000,
+        "window": [
+          "2026-11-10 15:19:55",
+          "2026-11-10 15:28:59"
+        ],
+        "pageSize": 100
+      },
+      "summary": "Dominant slow endpoint \"/neteco/config/device/v1/device-list\" (79 of 100 sampled slow spans, max 17635ms).",
+      "data": {
+        "sampled": 100,
+        "total": 809,
+        "topEndpoints": [
+          {
+            "source": "/neteco/config/device/v1/device-list",
+            "count": 79,
+            "maxMs": 17635,
+            "sumMs": 1211637
+          },
+          {
+            "source": "/rest/neteco/web/config/device/v1/device-list",
+            "count": 8,
+            "maxMs": 16754,
+            "sumMs": 115741
+          },
+          {
+            "source": "/neteco/pvms/config/device/v1/config/set-signal",
+            "count": 4,
+            "maxMs": 15442,
+            "sumMs": 39325
+          },
+          {
+            "source": "/pvms/device/v1/livedata/live-data-subscribe",
+            "count": 2,
+            "maxMs": 12640,
+            "sumMs": 23204
+          },
+          {
+            "source": "/neteco/config/device/v1/config/set-signal-with-randomval",
+            "count": 2,
+            "maxMs": 7990,
+            "sumMs": 14402
+          }
+        ]
+      }
+    },
+    {
+      "step": 6,
+      "kind": "trace_sql",
+      "tool": "show_trace_events",
+      "query": {
+        "traceId": "2306010-1794295688030-672594",
+        "source": "/neteco/config/device/v1/device-list",
+        "timeUsedMs": 17635
+      },
+      "summary": "Worst trace 2306010-1794295688030-672594 (17635ms) spends 16963ms in one DPDeviceService SQL statement.",
+      "data": {
+        "worstTrace": {
+          "traceId": "2306010-1794295688030-672594",
+          "source": "/neteco/config/device/v1/device-list",
+          "timeUsedMs": 17635,
+          "envId": 2279479
+        },
+        "slowestEvents": [
+          {
+            "app": "DPDeviceService",
+            "type": "Tomcat",
+            "method": "invoke",
+            "timeUsedMs": 17635,
+            "argument": "(POST)(/rest/neteco/config/device/v1/device-list)(200)"
+          },
+          {
+            "app": "DPDeviceService",
+            "type": "Mysql",
+            "method": "execute",
+            "timeUsedMs": 16963,
+            "argument": "SELECT\n         TBL_DEVICE.DN_ID, TBL_DEVICE.DN, TBL_DEVICE.PARENT_DN, TBL_DEVICE.PARENT_DN_ID, TBL_DEVICE.STATION_DN, TBL_DEVICE.STATION_DN_ID, TBL_DEVICE.ESN, TBL_DEVICE.MOC_ID, TBL_DEVICE.MODEL, TBL_DEVICE.MOTYPE_ID, TBL_DEVICE.MOTYPE_VER_ID, TBL_DEVICE.UPDATE_TIME, TBL_DEVICE.DELETE_STATUS, TBL_DEVICE.VERSION, TBL_DEVICE.NAME, TBL_DEVICE.ICONPATH, TBL_DEVICE.STATUS, TBL_DEVICE.SOFTWARE_VERSION \n        FROM\n        TBL_DEVICE AS TBL_DEVICE\n         \n         WHERE  TBL_DEVICE.DELETE_STATUS = 0\n            \n            \n                and instr(TBL_DEVICE.ESN, ?) > 0\n            \n            \n            \n            \n                and TBL_DEVICE.MOC_ID not in\n                (\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                )\n            \n            \n                and TBL_DEVICE.MOTYPE_ID not in\n                (\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n               ..."
+          },
+          {
+            "app": "DPDeviceService",
+            "type": "Mysql",
+            "method": "execute",
+            "timeUsedMs": 533,
+            "argument": "SELECT\n        COUNT(1)\n        FROM\n        TBL_DEVICE AS TBL_DEVICE\n         \n         WHERE  TBL_DEVICE.DELETE_STATUS = 0\n            \n            \n                and instr(TBL_DEVICE.ESN, ?) > 0\n            \n            \n            \n            \n                and TBL_DEVICE.MOC_ID not in\n                (\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                )\n            \n            \n                and TBL_DEVICE.MOTYPE_ID not in\n                (\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n           ..."
+          }
+        ],
+        "sqlAnalysis": {
+          "suspicious": true,
+          "reasons": [
+            "instr() on a column prevents index use (full table scan)",
+            "IN / NOT IN list can disable index range scans",
+            "very wide SELECT list increases scan cost"
+          ]
+        }
+      }
+    },
+    {
+      "step": 7,
+      "kind": "resource_metrics",
+      "tool": "query_ces_metric_data",
+      "query": {
+        "namespace": "SYS.RDS",
+        "dimensions": [
+          {
+            "name": "rds_cluster_id",
+            "value": "8273e2812df642cf995e0d5ec109623ain01"
+          }
+        ],
+        "metrics": [
+          "rds001_cpu_util",
+          "rds074_slow_queries",
+          "rds006_conn_count",
+          "rds008_qps"
+        ],
+        "from": 1794294651000,
+        "to": 1794295739000,
+        "period": 60
+      },
+      "summary": "Resource 8273e2812df642cf995e0d5ec109623ain01 minute-level metrics across baseline+alarm window.",
+      "data": {
+        "rds001_cpu_util": {
+          "unit": null,
+          "points": [
+            [
+              1794294660000,
+              15.91
+            ],
+            [
+              1794294720000,
+              14.59
+            ],
+            [
+              1794294780000,
+              15.26
+            ],
+            [
+              1794294840000,
+              8.32
+            ],
+            [
+              1794294900000,
+              10.55
+            ],
+            [
+              1794294960000,
+              74.68
+            ],
+            [
+              1794295020000,
+              95.29
+            ],
+            [
+              1794295080000,
+              94.07
+            ],
+            [
+              1794295140000,
+              92.92
+            ],
+            [
+              1794295200000,
+              95.25
+            ],
+            [
+              1794295260000,
+              94.77
+            ],
+            [
+              1794295320000,
+              92.84
+            ],
+            [
+              1794295380000,
+              94.79
+            ],
+            [
+              1794295440000,
+              93.21
+            ],
+            [
+              1794295500000,
+              95.04
+            ],
+            [
+              1794295560000,
+              93.57
+            ],
+            [
+              1794295620000,
+              94.51
+            ],
+            [
+              1794295680000,
+              66.75
+            ]
+          ]
+        },
+        "rds074_slow_queries": {
+          "unit": null,
+          "points": [
+            [
+              1794294660000,
+              19
+            ],
+            [
+              1794294720000,
+              16
+            ],
+            [
+              1794294780000,
+              21
+            ],
+            [
+              1794294840000,
+              10
+            ],
+            [
+              1794294900000,
+              7
+            ],
+            [
+              1794294960000,
+              20
+            ],
+            [
+              1794295020000,
+              96
+            ],
+            [
+              1794295080000,
+              100
+            ],
+            [
+              1794295140000,
+              72
+            ],
+            [
+              1794295200000,
+              101
+            ],
+            [
+              1794295260000,
+              85
+            ],
+            [
+              1794295320000,
+              93
+            ],
+            [
+              1794295380000,
+              83
+            ],
+            [
+              1794295440000,
+              75
+            ],
+            [
+              1794295500000,
+              90
+            ],
+            [
+              1794295560000,
+              79
+            ],
+            [
+              1794295620000,
+              91
+            ],
+            [
+              1794295680000,
+              75
+            ]
+          ]
+        },
+        "rds006_conn_count": {
+          "unit": null,
+          "points": [
+            [
+              1794294660000,
+              212
+            ],
+            [
+              1794294720000,
+              212
+            ],
+            [
+              1794294780000,
+              212
+            ],
+            [
+              1794294840000,
+              212
+            ],
+            [
+              1794294900000,
+              212
+            ],
+            [
+              1794294960000,
+              212
+            ],
+            [
+              1794295020000,
+              212
+            ],
+            [
+              1794295080000,
+              212
+            ],
+            [
+              1794295140000,
+              213
+            ],
+            [
+              1794295200000,
+              212
+            ],
+            [
+              1794295260000,
+              212
+            ],
+            [
+              1794295320000,
+              212
+            ],
+            [
+              1794295380000,
+              212
+            ],
+            [
+              1794295440000,
+              212
+            ],
+            [
+              1794295500000,
+              232
+            ],
+            [
+              1794295560000,
+              233
+            ],
+            [
+              1794295620000,
+              233
+            ],
+            [
+              1794295680000,
+              232
+            ]
+          ]
+        },
+        "rds008_qps": {
+          "unit": null,
+          "points": [
+            [
+              1794294660000,
+              1574.6
+            ],
+            [
+              1794294720000,
+              1361.71
+            ],
+            [
+              1794294780000,
+              1296.62
+            ],
+            [
+              1794294840000,
+              1313.29
+            ],
+            [
+              1794294900000,
+              1526.67
+            ],
+            [
+              1794294960000,
+              1367.79
+            ],
+            [
+              1794295020000,
+              1387.21
+            ],
+            [
+              1794295080000,
+              1455.49
+            ],
+            [
+              1794295140000,
+              1373.87
+            ],
+            [
+              1794295200000,
+              1613.45
+            ],
+            [
+              1794295260000,
+              1596.76
+            ],
+            [
+              1794295320000,
+              1358.87
+            ],
+            [
+              1794295380000,
+              1406.54
+            ],
+            [
+              1794295440000,
+              1349.99
+            ],
+            [
+              1794295500000,
+              1505.02
+            ],
+            [
+              1794295560000,
+              1411.29
+            ],
+            [
+              1794295620000,
+              1345.36
+            ],
+            [
+              1794295680000,
+              1317.21
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "statement": "Slow calls (>3s) rose 3.0x in the alarm window (809 vs quietest baseline 272).",
+      "evidenceRefs": [
+        4
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "F2",
+      "statement": "Endpoint /neteco/config/device/v1/device-list dominates slow traffic (79/100 sampled slow spans).",
+      "evidenceRefs": [
+        5
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "F3",
+      "statement": "The dominant SQL is non-sargable: instr() on a column prevents index use (full table scan); IN / NOT IN list can disable index range scans; very wide SELECT list increases scan cost.",
+      "evidenceRefs": [
+        6
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "F4",
+      "statement": "Resource CPU peaked at 95.3% during the alarm window.",
+      "evidenceRefs": [
+        7
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "F5",
+      "statement": "Query throughput stayed flat (window max 1613/s vs baseline avg 1406/s): the saturation is execution-side, not traffic-side.",
+      "evidenceRefs": [
+        7
+      ],
+      "severity": "medium"
+    }
+  ],
+  "conclusion": {
+    "rootCause": "A non-sargable SQL pattern on the dominant endpoint saturated the SYS.RDS resource; the CES alarm is the downstream symptom.",
+    "confidence": "high",
+    "recommendations": [
+      "Rewrite the captured SQL to a sargable form (prefix LIKE / dedicated index) and add a query timeout.",
+      "Add a CES alarm on slow-query count for resource 8273e2812df642cf995e0d5ec109623ain01 for earlier warning than CPU.",
+      "Review the evidence chain with a code-diagnosis service for a second opinion."
+    ]
+  },
+  "provenance": {
+    "mcpServer": "http://127.0.0.1:8080",
+    "generatedAt": "2026-11-11T00:44:23.335Z",
+    "generator": "dsh-plugin-dpom-apm/0.1.0",
+    "schema": "dpom-evidence-chain/1.0"
+  }
+}
