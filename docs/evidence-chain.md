@@ -45,12 +45,14 @@
 | kind | 内容 |
 |---|---|
 | `ces_alarm` | CES 告警历史与目标告警（含维度、SMN 主题、数据点） |
-| `apm_business_resolution` | businessId 解析：告警名/SMN token → business |
+| `apm_business_resolution` | businessId 解析：别名 → 告警名/SMN token → business |
 | `apm_alarm` | 窗口附近的 APM 应用层告警 |
 | `trace_stats` | 告警窗 vs 双基线窗的错误/慢调用计数 |
 | `slow_endpoint_ranking` | 慢接口排名（按累计耗时） |
-| `trace_sql` | 最慢 trace 的事件序列 + SQL 反模式分析 |
-| `resource_metrics` | 资源 CES 指标分钟级序列（CPU/慢查询/连接/QPS） |
+| `trace_sql` | 最慢 trace 的事件序列 + 分型（Mysql SQL / Redis / HTTP 下游 / Kafka）+ SQL 反模式分析 |
+| `resource_metric_discovery` | `list_ces_metrics` 实时发现该资源可用指标（多维度重试），供指标步打分选型 |
+| `resource_metrics` | 资源 CES 指标分钟级序列（告警指标 + 发现的 CPU/吞吐/慢查询/连接类指标） |
+| `aom_events` | 窗口内 AOM 基础设施事件（CronJob/OOM/FailedDelete 等），按事件名聚合 |
 
 ## findings[]（发现）
 

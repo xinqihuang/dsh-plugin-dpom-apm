@@ -1,7 +1,7 @@
 {
   "name": "dsh-plugin-dpom-apm",
   "description": "DeepSeek Harness plugin for DPOMBaseMCPServer APM diagnostics: auto-resolves businessId/envId, normalizes MCP tool arguments, and builds replayable evidence chains.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "icon": "./icon.svg",
   "type": "module",
   "main": "lib/index.js",

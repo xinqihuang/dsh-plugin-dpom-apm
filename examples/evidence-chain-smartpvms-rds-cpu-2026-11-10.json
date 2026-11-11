@@ -429,8 +429,27 @@
             "method": "execute",
             "timeUsedMs": 533,
             "argument": "SELECT\n        COUNT(1)\n        FROM\n        TBL_DEVICE AS TBL_DEVICE\n         \n         WHERE  TBL_DEVICE.DELETE_STATUS = 0\n            \n            \n                and instr(TBL_DEVICE.ESN, ?) > 0\n            \n            \n            \n            \n                and TBL_DEVICE.MOC_ID not in\n                (\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                )\n            \n            \n                and TBL_DEVICE.MOTYPE_ID not in\n                (\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n                ,\n                    ?\n           ..."
+          },
+          {
+            "app": "DPDeviceService",
+            "type": "JettyClient",
+            "method": "send",
+            "timeUsedMs": 24,
+            "argument": "(GET)(http://iotda.pvms.paas:80/rest/neteco/modelmgr/v1/motypes/motype/sampling)(200)"
+          },
+          {
+            "app": "DPModelProxyService",
+            "type": "Tomcat",
+            "method": "invoke",
+            "timeUsedMs": 20,
+            "argument": "(GET)(/rest/neteco/modelmgr/v1/motypes/motype/sampling?typeId=23022&versionId=30003)(200)"
           }
         ],
+        "typeBreakdown": {
+          "Tomcat": 17655,
+          "Mysql": 17496,
+          "JettyClient": 24
+        },
         "sqlAnalysis": {
           "suspicious": true,
           "reasons": [
@@ -443,6 +462,68 @@
     },
     {
       "step": 7,
+      "kind": "resource_metric_discovery",
+      "tool": "list_ces_metrics",
+      "query": {
+        "namespace": "SYS.RDS",
+        "triedDimensions": [
+          {
+            "name": "rds_cluster_id",
+            "value": "8273e2812df642cf995e0d5ec109623ain01"
+          }
+        ],
+        "resolvedDimension": "rds_cluster_id",
+        "limit": 1000
+      },
+      "summary": "Discovered 88 metrics for the alarmed resource (via dimension rds_cluster_id); relevance-scored candidates feed the metric step.",
+      "data": {
+        "total": 88,
+        "metrics": [
+          "sys_swap_usage",
+          "rds_wait_thread_count",
+          "rds_threadpool_waiting_threads",
+          "rds_temp_table_usage",
+          "rds_temp_file_size",
+          "rds_slave_sql_running",
+          "rds_slave_io_running",
+          "rds_prepared_stmt_count",
+          "rds_pending_mdl_lock_count",
+          "rds_mdl_lock_count",
+          "rds_max_trx_modified_rows",
+          "rds_long_transaction",
+          "rds_innodb_row_lock_time_avg",
+          "rds_innodb_row_lock_current_waits",
+          "rds_innodb_pages_written_rate",
+          "rds_innodb_pages_read_rate",
+          "rds_innodb_os_log_written_rate",
+          "rds_innodb_log_waits_rate",
+          "rds_innodb_log_waits_count",
+          "rds_innodb_lock_waits",
+          "rds_innodb_buffer_pool_write_requests_rate",
+          "rds_innodb_buffer_pool_read_requests_rate",
+          "rds_innodb_buffer_pool_pages_flushed_rate",
+          "rds_created_tmp_tables_rate",
+          "rds_conn_active_usage",
+          "rds_bytes_sent_rate",
+          "rds_bytes_recv_rate",
+          "rds_buffer_pool_wait_free",
+          "rds_binlog_size",
+          "rds_bin_log_adding_speed",
+          "rds_aborted_connects",
+          "rds_aborted_clients",
+          "rds338_active_threads_usage",
+          "rds173_replication_delay_avg",
+          "rds082_semi_sync_tx_avg_wait_time",
+          "rds081_vm_ioutils",
+          "rds080_vm_peak",
+          "rds079_vm_hwm",
+          "rds078_threads",
+          "rds077_vma"
+        ]
+      }
+    },
+    {
+      "step": 8,
       "kind": "resource_metrics",
       "tool": "query_ces_metric_data",
       "query": {
@@ -455,18 +536,22 @@
         ],
         "metrics": [
           "rds001_cpu_util",
+          "rds009_tps",
+          "rds008_qps",
           "rds074_slow_queries",
-          "rds006_conn_count",
-          "rds008_qps"
+          "rds_wait_thread_count",
+          "rds_threadpool_waiting_threads",
+          "rds_conn_active_usage",
+          "rds072_conn_usage"
         ],
         "from": 1794294651000,
         "to": 1794295739000,
         "period": 60
       },
-      "summary": "Resource 8273e2812df642cf995e0d5ec109623ain01 minute-level metrics across baseline+alarm window.",
+      "summary": "Resource 8273e2812df642cf995e0d5ec109623ain01 minute-level metrics across baseline+alarm window (rds001_cpu_util, rds009_tps, rds008_qps, rds074_slow_queries, rds_wait_thread_count, rds_threadpool_waiting_threads, rds_conn_active_usage, rds072_conn_usage).",
       "data": {
         "rds001_cpu_util": {
-          "unit": null,
+          "unit": "%",
           "points": [
             [
               1794294660000,
@@ -542,8 +627,162 @@
             ]
           ]
         },
+        "rds009_tps": {
+          "unit": "Transactions/sec",
+          "points": [
+            [
+              1794294660000,
+              30.99
+            ],
+            [
+              1794294720000,
+              29.4
+            ],
+            [
+              1794294780000,
+              28.26
+            ],
+            [
+              1794294840000,
+              24.6
+            ],
+            [
+              1794294900000,
+              25
+            ],
+            [
+              1794294960000,
+              24.23
+            ],
+            [
+              1794295020000,
+              21.55
+            ],
+            [
+              1794295080000,
+              25.49
+            ],
+            [
+              1794295140000,
+              20.68
+            ],
+            [
+              1794295200000,
+              25.57
+            ],
+            [
+              1794295260000,
+              26.91
+            ],
+            [
+              1794295320000,
+              26.25
+            ],
+            [
+              1794295380000,
+              22.76
+            ],
+            [
+              1794295440000,
+              23.74
+            ],
+            [
+              1794295500000,
+              23.88
+            ],
+            [
+              1794295560000,
+              22.33
+            ],
+            [
+              1794295620000,
+              24.02
+            ],
+            [
+              1794295680000,
+              23.35
+            ]
+          ]
+        },
+        "rds008_qps": {
+          "unit": "Queries/sec",
+          "points": [
+            [
+              1794294660000,
+              1574.6
+            ],
+            [
+              1794294720000,
+              1361.71
+            ],
+            [
+              1794294780000,
+              1296.62
+            ],
+            [
+              1794294840000,
+              1313.29
+            ],
+            [
+              1794294900000,
+              1526.67
+            ],
+            [
+              1794294960000,
+              1367.79
+            ],
+            [
+              1794295020000,
+              1387.21
+            ],
+            [
+              1794295080000,
+              1455.49
+            ],
+            [
+              1794295140000,
+              1373.87
+            ],
+            [
+              1794295200000,
+              1613.45
+            ],
+            [
+              1794295260000,
+              1596.76
+            ],
+            [
+              1794295320000,
+              1358.87
+            ],
+            [
+              1794295380000,
+              1406.54
+            ],
+            [
+              1794295440000,
+              1349.99
+            ],
+            [
+              1794295500000,
+              1505.02
+            ],
+            [
+              1794295560000,
+              1411.29
+            ],
+            [
+              1794295620000,
+              1345.36
+            ],
+            [
+              1794295680000,
+              1317.21
+            ]
+          ]
+        },
         "rds074_slow_queries": {
-          "unit": null,
+          "unit": "Count/min",
           "points": [
             [
               1794294660000,
@@ -619,160 +858,422 @@
             ]
           ]
         },
-        "rds006_conn_count": {
-          "unit": null,
+        "rds_wait_thread_count": {
+          "unit": "Counts",
           "points": [
             [
               1794294660000,
-              212
+              1
             ],
             [
               1794294720000,
-              212
+              1
             ],
             [
               1794294780000,
-              212
+              1
             ],
             [
               1794294840000,
-              212
+              0
             ],
             [
               1794294900000,
-              212
+              0
             ],
             [
               1794294960000,
-              212
+              20
             ],
             [
               1794295020000,
-              212
+              3
             ],
             [
               1794295080000,
-              212
+              20
             ],
             [
               1794295140000,
-              213
+              20
             ],
             [
               1794295200000,
-              212
+              2
             ],
             [
               1794295260000,
-              212
+              20
             ],
             [
               1794295320000,
-              212
+              5
             ],
             [
               1794295380000,
-              212
+              21
             ],
             [
               1794295440000,
-              212
+              20
             ],
             [
               1794295500000,
-              232
+              22
             ],
             [
               1794295560000,
-              233
+              21
             ],
             [
               1794295620000,
-              233
+              20
             ],
             [
               1794295680000,
-              232
+              20
             ]
           ]
         },
-        "rds008_qps": {
-          "unit": null,
+        "rds_threadpool_waiting_threads": {
+          "unit": "Counts",
           "points": [
             [
               1794294660000,
-              1574.6
+              0
             ],
             [
               1794294720000,
-              1361.71
+              0
             ],
             [
               1794294780000,
-              1296.62
+              0
             ],
             [
               1794294840000,
-              1313.29
+              0
             ],
             [
               1794294900000,
-              1526.67
+              0
             ],
             [
               1794294960000,
-              1367.79
+              0
             ],
             [
               1794295020000,
-              1387.21
+              0
             ],
             [
               1794295080000,
-              1455.49
+              1
             ],
             [
               1794295140000,
-              1373.87
+              1
             ],
             [
               1794295200000,
-              1613.45
+              1
             ],
             [
               1794295260000,
-              1596.76
+              0
             ],
             [
               1794295320000,
-              1358.87
+              0
             ],
             [
               1794295380000,
-              1406.54
+              0
             ],
             [
               1794295440000,
-              1349.99
+              0
             ],
             [
               1794295500000,
-              1505.02
+              0
             ],
             [
               1794295560000,
-              1411.29
+              1
             ],
             [
               1794295620000,
-              1345.36
+              1
             ],
             [
               1794295680000,
-              1317.21
+              0
+            ]
+          ]
+        },
+        "rds_conn_active_usage": {
+          "unit": "%",
+          "points": [
+            [
+              1794294660000,
+              0.08
+            ],
+            [
+              1794294720000,
+              0.07
+            ],
+            [
+              1794294780000,
+              0.06
+            ],
+            [
+              1794294840000,
+              0.05
+            ],
+            [
+              1794294900000,
+              0.05
+            ],
+            [
+              1794294960000,
+              0.28
+            ],
+            [
+              1794295020000,
+              0.31
+            ],
+            [
+              1794295080000,
+              0.31
+            ],
+            [
+              1794295140000,
+              0.29
+            ],
+            [
+              1794295200000,
+              0.28
+            ],
+            [
+              1794295260000,
+              0.28
+            ],
+            [
+              1794295320000,
+              0.12
+            ],
+            [
+              1794295380000,
+              0.31
+            ],
+            [
+              1794295440000,
+              0.28
+            ],
+            [
+              1794295500000,
+              0.33
+            ],
+            [
+              1794295560000,
+              0.34
+            ],
+            [
+              1794295620000,
+              0.29
+            ],
+            [
+              1794295680000,
+              0.31
+            ]
+          ]
+        },
+        "rds072_conn_usage": {
+          "unit": "%",
+          "points": [
+            [
+              1794294660000,
+              2.12
+            ],
+            [
+              1794294720000,
+              2.12
+            ],
+            [
+              1794294780000,
+              2.12
+            ],
+            [
+              1794294840000,
+              2.12
+            ],
+            [
+              1794294900000,
+              2.12
+            ],
+            [
+              1794294960000,
+              2.12
+            ],
+            [
+              1794295020000,
+              2.13
+            ],
+            [
+              1794295080000,
+              2.12
+            ],
+            [
+              1794295140000,
+              2.12
+            ],
+            [
+              1794295200000,
+              2.12
+            ],
+            [
+              1794295260000,
+              2.12
+            ],
+            [
+              1794295320000,
+              2.12
+            ],
+            [
+              1794295380000,
+              2.12
+            ],
+            [
+              1794295440000,
+              2.12
+            ],
+            [
+              1794295500000,
+              2.32
+            ],
+            [
+              1794295560000,
+              2.32
+            ],
+            [
+              1794295620000,
+              2.32
+            ],
+            [
+              1794295680000,
+              2.32
             ]
           ]
         }
+      }
+    },
+    {
+      "step": 9,
+      "kind": "aom_events",
+      "tool": "list_aom_events",
+      "query": {
+        "timeRange": "1794294651000.1794295739000.19",
+        "limit": 50
+      },
+      "summary": "50 AOM events in the window; top: SawCompletedJob(50).",
+      "data": {
+        "total": 50,
+        "byName": {
+          "SawCompletedJob": 50
+        },
+        "events": [
+          {
+            "startsAt": 1794295622000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "smartpvms",
+            "name": "cronjob-websrv-device-check-eco-task",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: cronjob-websrv-device-check-eco-task-29904927, status: Complete"
+          },
+          {
+            "startsAt": 1794295621000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "smartpvms",
+            "name": "cronjob-dppromotesrv-esspromotion-timeout",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: cronjob-dppromotesrv-esspromotion-timeout-29904927, status: Complete"
+          },
+          {
+            "startsAt": 1794295556000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "fusioncharge-home",
+            "name": "upgrade-ota-progress-cronjob",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: upgrade-ota-progress-cronjob-29904925, status: Complete"
+          },
+          {
+            "startsAt": 1794295532000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "fusioncharge",
+            "name": "second-level-cronjob",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: second-level-cronjob-29904925, status: Complete"
+          },
+          {
+            "startsAt": 1794295503000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "fusioncharge-home",
+            "name": "cbg-fault-message-push-cronjob",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: cbg-fault-message-push-cronjob-29904925, status: Complete"
+          },
+          {
+            "startsAt": 1794295503000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "fusioncharge-home",
+            "name": "cbg-key-retry-push-cronjob",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: cbg-key-retry-push-cronjob-29904925, status: Complete"
+          },
+          {
+            "startsAt": 1794295502000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "devmgr",
+            "name": "cronjob-dpdevicelifecycle-swm-schedule-task-one-min",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: cronjob-dpdevicelifecycle-swm-schedule-task-one-min-29904925, status: Complete"
+          },
+          {
+            "startsAt": 1794295502000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "icooling",
+            "name": "checkacdatatask-cronjob",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: checkacdatatask-cronjob-29904925, status: Complete"
+          },
+          {
+            "startsAt": 1794295502000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "dmaas",
+            "name": "cronjob-notification-retry-task",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: cronjob-notification-retry-task-29904925, status: Complete"
+          },
+          {
+            "startsAt": 1794295502000,
+            "severity": "Minor",
+            "kind": "CronJob",
+            "namespace": "dpframework",
+            "name": "cronjob-dispatcher-sync-sunshine-device-from-global",
+            "eventName": "SawCompletedJob",
+            "message": "(combined from similar events): Saw completed job: cronjob-dispatcher-sync-sunshine-device-from-global-29904925, status: Complete"
+          }
+        ]
       }
     }
   ],
@@ -803,17 +1304,25 @@
     },
     {
       "id": "F4",
-      "statement": "Resource CPU peaked at 95.3% during the alarm window.",
+      "statement": "Resource metric rds001_cpu_util peaked at 95.3 during the alarm window.",
       "evidenceRefs": [
-        7
+        8
       ],
       "severity": "high"
     },
     {
       "id": "F5",
-      "statement": "Query throughput stayed flat (window max 1613/s vs baseline avg 1406/s): the saturation is execution-side, not traffic-side.",
+      "statement": "Throughput rds009_tps stayed flat (window max 27 vs baseline avg 26): the degradation is execution-side, not traffic-side.",
       "evidenceRefs": [
-        7
+        8
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "F6",
+      "statement": "Throughput rds008_qps stayed flat (window max 1613 vs baseline avg 1406): the degradation is execution-side, not traffic-side.",
+      "evidenceRefs": [
+        8
       ],
       "severity": "medium"
     }
@@ -829,8 +1338,8 @@
   },
   "provenance": {
     "mcpServer": "http://127.0.0.1:8080",
-    "generatedAt": "2026-11-11T00:44:23.335Z",
-    "generator": "dsh-plugin-dpom-apm/0.1.0",
+    "generatedAt": "2026-11-11T04:34:56.153Z",
+    "generator": "dsh-plugin-dpom-apm/0.2.0",
     "schema": "dpom-evidence-chain/1.0"
   }
 }

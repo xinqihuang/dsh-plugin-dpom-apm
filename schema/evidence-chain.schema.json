@@ -104,7 +104,9 @@
               "trace_stats",
               "slow_endpoint_ranking",
               "trace_sql",
-              "resource_metrics"
+              "resource_metric_discovery",
+              "resource_metrics",
+              "aom_events"
             ],
             "description": "Machine-readable step kind."
           },

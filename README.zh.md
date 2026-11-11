@@ -17,9 +17,19 @@ DeepSeek Harness（DSH）插件：把 [DPOMBaseMCPServer](https://github.com/xin
 
 ## 提供的工具
 
-- **`dpom_apm_resolve_context`** — 解析 businessId/envId（输入：businessId / businessName / alarmName / smnTopic 任一）
+- **`dpom_apm_resolve_context`** — 解析 businessId/envId（输入：businessId / businessName / alarmName / smnTopic 任一；支持 `businessAliases` 配置中文告警名 → business 名映射）
 - **`dpom_apm_call`** — 调用任意 DPOMBaseMCPServer MCP 工具（入参自动归一化 + businessId/region 自动注入）
-- **`dpom_apm_diagnose_alarm`** — 一键诊断：CES 告警 → business 解析 → APM 告警 → 慢/错 trace 窗口对比 → 慢接口排名 → 最慢 trace 的 SQL 提取与反模式识别 → 资源 CES 指标 → 规则化 findings + 证据链；`outputPath` 可落盘完整证据链 JSON
+- **`dpom_apm_diagnose_alarm`** — 一键诊断：CES 告警 → business 解析 → APM 告警 → 慢/错 trace 窗口对比 → 慢接口排名 → 最慢 trace 分型分析（SQL / Redis / HTTP 下游 / Kafka）→ **资源指标动态发现**（`list_ces_metrics` 实时发现该资源的真实指标并按诊断相关性打分，自动覆盖全部 CES namespace）→ AOM 基础设施事件 → 规则化 findings + 证据链；`outputPath` 可落盘完整证据链 JSON
+
+### 告警类型覆盖（v0.2.0 实测）
+
+| 告警类型 | business 解析 | 资源指标 | 实测结果 |
+|---|---|---|---|
+| SYS.RDS（数据库） | 告警名/SMN token | 发现 88 个指标，CPU/QPS/TPS/慢查询全取 | 6 findings（含非 sargable SQL 根因） |
+| SYS.DCS（Redis） | 同上 | 按维度发现 | 慢调用 3.0x finding |
+| SYS.DMS（Kafka） | 同上 | broker 维度 + 告警指标兜底 | JettyClient 慢调用分型 + broker CPU + FailedDelete 事件 findings |
+| AGT.ECS（主机） | DMaaS token | 不在 CES 工具枚举内 → 优雅降级 | business 解析 + trace 分析正常 |
+| SYS.ELB 等 | 需 `businessAliases`（中文名无英文 token） | 动态发现 | — |
 
 ## 安装
 

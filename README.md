@@ -15,9 +15,13 @@ A DeepSeek Harness (DSH) plugin that wires the Huawei Cloud APM/CES diagnostics 
 
 ## Tools
 
-- **`dpom_apm_resolve_context`** — resolve businessId/envId from businessId / businessName / alarmName / smnTopic
+- **`dpom_apm_resolve_context`** — resolve businessId/envId from businessId / businessName / alarmName / smnTopic; `businessAliases` config maps Chinese alarm display names to business names
 - **`dpom_apm_call`** — call any DPOMBaseMCPServer MCP tool with argument normalization and auto-injection
-- **`dpom_apm_diagnose_alarm`** — one-shot diagnosis: CES alarm -> business -> APM alarms -> slow/error trace window-vs-baseline -> slow endpoint ranking -> worst trace SQL extraction with anti-pattern detection -> resource CES metrics -> rule-based findings + evidence chain; `outputPath` writes the full chain JSON
+- **`dpom_apm_diagnose_alarm`** — one-shot diagnosis: CES alarm -> business -> APM alarms -> slow/error trace window-vs-baseline -> slow endpoint ranking -> worst-trace slow-event typing (Mysql SQL / Redis / HTTP downstream / Kafka) -> **dynamic resource metric discovery** (`list_ces_metrics` finds the resource's real metrics and relevance-scores them — works for every CES namespace) -> AOM infrastructure events -> rule-based findings + evidence chain; `outputPath` writes the full chain JSON
+
+### Alarm-type coverage (v0.2.0, tested against live alarms)
+
+SYS.RDS (6 findings incl. non-sargable SQL root cause), SYS.DCS (Redis), SYS.DMS (Kafka: span-type + broker CPU + FailedDelete event findings), AGT.ECS (graceful degradation outside the CES tool enum), SYS.ELB and others via `businessAliases`.
 
 ## Install
 
